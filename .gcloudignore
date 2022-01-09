@@ -15,6 +15,7 @@
 .idea
 LICENSE
 README.md
+test.py
 
 node_modules
 #!include:.gitignore
