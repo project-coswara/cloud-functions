@@ -17,7 +17,7 @@ export PROJECT_ID="project-coswara" && gcloud functions deploy compute_score \
  --project ${PROJECT_ID} \
  --region europe-west1 \
  --runtime python37 \
- --memory 512MB \
+ --memory 2048MB \
  --trigger-event "providers/cloud.firestore/eventTypes/document.create" \
  --trigger-resource "projects/${PROJECT_ID}/databases/(default)/documents/SCORE_DATA/{sessionId}"
 ```

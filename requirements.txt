@@ -4,5 +4,5 @@ librosa>=0.8.1
 numba>=0.54
 numpy<=1.20
 scikit-learn>=1.0.2
-torch>=1.10.1
-torchaudio>=0.10.1
+https://download.pytorch.org/whl/cpu/torch-1.10.1%2Bcpu-cp37-cp37m-linux_x86_64.whl
+https://download.pytorch.org/whl/cpu/torchaudio-0.10.1%2Bcpu-cp37-cp37m-linux_x86_64.whl
