@@ -8,6 +8,7 @@ import torch
 from utils.common import parse_config
 from utils.constants import AUDIO_KEYS
 from utils.feature import FeatureExtractor
+from utils.weights import WEIGHTS
 
 
 def score_symptoms(local_loc: str):
@@ -21,7 +22,9 @@ def score_symptoms(local_loc: str):
         symptom_keys = [line.strip() for line in f.readlines()]
 
     symptoms_data = np.array([metadata[key] * 1 if key in metadata else 0 for key in symptom_keys], ndmin=2)
-    return model.predict_proba(symptoms_data)[0][1]
+    ret_val = model.predict_proba(symptoms_data)[0][1]
+
+    return ret_val * WEIGHTS['symptoms']
 
 
 def score_audio(local_loc: str, audio_key: str):
@@ -54,7 +57,9 @@ def score_audio(local_loc: str, audio_key: str):
     model.eval()
     with torch.no_grad():
         output = model.predict_proba(input_features)
-    return sum(output)[0].item() / len(output)
+    ret_val = sum(output)[0].item() / len(output)
+
+    return ret_val * WEIGHTS[audio_key]
 
 
 def score_fn(local_loc: str, key: str):
@@ -70,4 +75,5 @@ def score_user(local_loc: str, num_threads: int = 1):
     with mp.Pool(processes=num_threads) as pool:
         scores = pool.starmap(score_fn, score_args)
 
-    return sum(scores) / len(scores)
+    return sum(scores)
+
